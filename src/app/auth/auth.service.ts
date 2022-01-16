@@ -19,6 +19,23 @@ export class AuthService {
         {id: 3, name: 'Detroit Pistons'},
         {id: 5, name: 'New York Knicks'}
       ]
+    },
+    {
+      id: 2, email: 'zoran@zoran.com', password: 'zoran1234',
+      firstName: 'Zoran', lastName: 'Zoric', phone: '+381663222554',
+      address: 'Street of basketball', favoriteCategories: [
+        {id: 1, name: 'Boston Celtics'},
+        {id: 4, name: 'Golden State Warriors'},
+        {id: 5, name: 'New York Knicks'}
+      ]
+    },
+    {
+      id: 3, email: 'milan@milan.com', password: 'milan1234',
+      firstName: 'Milan', lastName: 'Milanovic', phone: '+381663211154',
+      address: 'Street of museum', favoriteCategories: [
+        {id: 2, name: 'Los Angeles Lakers'},
+        {id: 4, name: 'Golden State Warriors'}
+      ]
     }
   ];
   private idCounter = 2;

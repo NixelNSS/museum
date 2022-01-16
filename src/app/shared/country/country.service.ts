@@ -12,7 +12,8 @@ export class CountryService {
     {id: 2, name: 'Illinois'},
     {id: 3, name: 'Michigan'},
     {id: 4, name: 'New York'},
-    {id: 5, name: 'Arizona'}
+    {id: 5, name: 'Arizona'},
+    {id: 6, name: 'California'}
   ];
 
   constructor() { }
