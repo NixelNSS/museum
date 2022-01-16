@@ -6,8 +6,16 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
   <app-root></app-root>
+  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+  <df-messenger
+    intent="WELCOME"
+    chat-title="Museum"
+    agent-id="8df59af7-78ae-4eec-a19b-f8cb91e7610e"
+    language-code="en"
+  ></df-messenger>
 </body>
 </html>

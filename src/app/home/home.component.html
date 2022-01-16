@@ -1,0 +1,109 @@
+<section>
+  <mat-toolbar>
+    <button mat-raised-button color="primary" (click)="sidenav.toggle()">Find</button>
+  </mat-toolbar>
+
+  <mat-sidenav-container>
+    <mat-sidenav mode="over" #sidenav>
+      <section fxLayoutAlign="center center">
+        <mat-tab-group color="primary" mat-stretch-tabs>
+          <mat-tab label="Search">
+            <mat-card class="filters">
+              <mat-card-header fxLayoutAlign="center center">
+                <mat-card-title id="card-title">
+                  <mat-label class="primary-color">Search</mat-label>
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-form-field hintLabel="Search by title or description...">
+                  <mat-label>Search for settings:</mat-label>
+                  <input matInput [(ngModel)]="searchValue" placeholder="Ex. Championship"
+                         (keyup)="search($event.target.value)">
+                </mat-form-field>
+              </mat-card-content>
+            </mat-card>
+          </mat-tab>
+          <mat-tab label="Apply filters">
+            <form (ngSubmit)="onSubmit()">
+              <mat-card class="filters">
+                <mat-card-header fxLayoutAlign="center center">
+                  <mat-card-title id="card-title">
+                    <mat-label class="primary-color">Filters</mat-label>
+                  </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <mat-form-field>
+                    <mat-select [formControl]="settingCategories" multiple
+                                placeholder="Select setting categories...">
+                      <mat-option *ngFor="let category of settingCategoryList"
+                                  [value]="category">{{ category.name }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <hr />
+                  <mat-form-field>
+                    <mat-select [formControl]="exhibitCategories" multiple
+                                placeholder="Select exhibit categories...">
+                      <mat-option *ngFor="let category of exhibitCategoryList"
+                                  [value]="category">{{ category.name }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <hr />
+                  <div fxLayoutAlign="center center" fxLayout="column">
+                    <mat-label>Minimal number of exhibits:</mat-label>
+                    <mat-slider [formControl]="numberOfExhibits" color="primary" thumbLabel min="1" max="20"></mat-slider>
+                  </div>
+                  <hr />
+                  <div fxLayoutAlign="center center" fxLayout="column">
+                    <mat-label>Maximum price:</mat-label>
+                    <mat-slider [formControl]="maximumPrice" color="primary" thumbLabel min="0" max="1000000"></mat-slider>
+                  </div>
+                  <hr />
+                  <div fxLayoutAlign="center center" fxLayout="column">
+                    <mat-label>Minimal rating: </mat-label>
+                    <bar-rating [formControl]="rating" [max]="5" [theme]="'default'"></bar-rating>
+                  </div>
+                  <hr />
+                  <div fxLayoutAlign="center center" fxLayout="column">
+                    <mat-label>Minimal tour time:</mat-label>
+                    <mat-slider [formControl]="minimalTourTime" color="primary" thumbLabel min="0" max="100"></mat-slider>
+                  </div>
+                  <hr />
+                  <div fxLayoutAlign="center center" fxLayout="column" id="apply-container">
+                    <button id="apply-button" type="submit" mat-raised-button
+                            color="primary">Apply</button>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </form>
+          </mat-tab>
+        </mat-tab-group>
+      </section>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <section class="content " fxLayoutAlign="center center" fxLayout="column">
+        <pagination-controls autoHide="true" (pageChange)="onTableDataChange($event)"></pagination-controls>
+        <mat-grid-list cols="3" rowHeight="1:1.2" gutterSize="10vh" id="grid">
+          <mat-grid-tile *ngFor="let setting of settings | paginate: { itemsPerPage: 6, currentPage: page, totalItems: totalItemsNumber}">
+            <mat-card fxLayout="column">
+              <mat-card-header fxLayoutAlign="center center">
+                <mat-card-title>{{ setting.name }}
+                  <hr />
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content class="setting-content">
+                <img [src]="setting.imageURL">
+                <p>{{ setting.description | slice:0:200 }}...</p>
+                <hr />
+                <p>Category: {{ setting.category.name }}</p>
+              </mat-card-content>
+              <mat-card-actions fxLayoutAlign="space-evenly center">
+                <a mat-raised-button color="primary" (click)="loadDetails(setting.id)">Details</a>
+              </mat-card-actions>
+            </mat-card>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </section>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</section>

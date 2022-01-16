@@ -1,0 +1,13 @@
+section {
+  height: 90vh;
+}
+mat-card {
+  width: 75%;
+  margin: auto;
+}
+mat-card-content, table {
+  width: 100%;
+}
+#buy {
+  min-width: 10vw;
+}

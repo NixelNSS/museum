@@ -1,0 +1,52 @@
+mat-tab-group {
+  width: 100%;
+}
+img {
+  width: 128px;
+  height: 128px;
+}
+#grid {
+  width: 90%;
+  padding-bottom: 0vh !important;
+}
+section {
+  margin-top: 5vh;
+}
+mat-form-field, mat-slider {
+  width: 50%;
+}
+.setting{
+  width: 20%;
+  margin: auto;
+  min-height: 33vh;
+}
+.setting-content {
+  width: 100%;
+  text-align: center;
+}
+.filters {
+  width: 66%;
+  margin: auto;
+  margin-bottom: 3vh;
+  margin-top: 3vh;
+  min-height: 20vh;
+  text-align: center;
+}
+#card-title {
+  margin-bottom: 5vh;
+}
+mat-sidenav {
+  margin: 1vw;
+  border-radius: 10px;
+  text-align: center;
+  width: 33%;
+}
+mat-sidenav-container {
+  height: 80vh;
+}
+#apply-container {
+  margin-top: 4vh;
+}
+#apply-button {
+  width: 10vw;
+}

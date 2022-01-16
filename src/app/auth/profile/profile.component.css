@@ -1,0 +1,7 @@
+section {
+  height: 90vh;
+}
+mat-tab-group {
+  margin-top: 10vh;
+  width: 75%;
+}

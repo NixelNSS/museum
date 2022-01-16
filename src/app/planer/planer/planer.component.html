@@ -1,0 +1,123 @@
+<section fxLayoutAlign="center center" fxLayout="column">
+  <mat-card>
+    <mat-card-header fxLayoutAlign="center center">
+      <mat-card-title>Planer</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+      <mat-form-field>
+        <mat-label>Search...</mat-label>
+        <input matInput (keyup)="search($event.target.value)" placeholder="Ex. Ongoing">
+      </mat-form-field>
+
+      <table mat-table [dataSource]="tourPlans" matSort>
+        <ng-container matColumnDef="number">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
+          <td mat-cell *matCellDef="let element"> {{element.amount}}EUR </td>
+        </ng-container>
+
+        <ng-container matColumnDef="time">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Time </th>
+          <td mat-cell *matCellDef="let element"> {{element.time}}mins </td>
+        </ng-container>
+
+        <ng-container matColumnDef="exhibits">
+          <th mat-header-cell *matHeaderCellDef> Exhibits </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-accordion>
+              <mat-expansion-panel [expanded]="isOpen == element.id" (opened)="isOpen = element.id">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Exhibits
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Click to show the exhibits
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="product-container">
+                  <table mat-table [dataSource]="element.exhibits">
+                    <ng-container matColumnDef="number">
+                      <th mat-header-cell *matHeaderCellDef> No. </th>
+                      <td mat-cell *matCellDef="let product; let i = index"> {{i + 1}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="name">
+                      <th mat-header-cell *matHeaderCellDef> Name </th>
+                      <td mat-cell *matCellDef="let product"> {{product.name}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="rating">
+                      <th mat-header-cell *matHeaderCellDef> Rating </th>
+                      <td mat-cell *matCellDef="let product">
+                        <bar-rating [readOnly]="element.status != 'Ongoing' || product.tourPlanReviewValue" [max]="5" [theme]="'default'" #review [rate]="product.tourPlanReviewValue" (rateChange)="addReview(review, product.id, element.id)"></bar-rating>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="exhibit-details">
+                      <th mat-header-cell *matHeaderCellDef> Exhibit details </th>
+                      <td mat-cell *matCellDef="let product">
+                        <button mat-raised-button color="primary" (click)="loadDetails(product.id)">
+                          <mat-icon>search</mat-icon>
+                        </button>
+                      </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="settingDisplayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: settingDisplayedColumns;"></tr>
+                  </table>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+          <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="done">
+          <th mat-header-cell *matHeaderCellDef> Done </th>
+          <td mat-cell *matCellDef="let element">
+            <button [disabled]="element.status != 'Ongoing' || element.isReviewed !== 0" mat-raised-button color="primary" (click)="markDone(element.id)">
+              <mat-icon>check_circle_outline</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cancel">
+          <th mat-header-cell *matHeaderCellDef> Cancel </th>
+          <td mat-cell *matCellDef="let element">
+            <button [disabled]="element.status != 'Ongoing'" mat-raised-button color="primary" (click)="markCanceled(element.id)">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="remove">
+          <th mat-header-cell *matHeaderCellDef> Remove </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-raised-button color="primary" (click)="deleteById(element.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[3, 4, 5]" showFirstLastButtons></mat-paginator>
+    </mat-card-content>
+    <mat-card-actions fxLayoutAlign="space-evenly center">
+      <button mat-raised-button color="primary" routerLink="">
+        <mat-icon>arrow_back_ios</mat-icon>
+        Continue exploring
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</section>

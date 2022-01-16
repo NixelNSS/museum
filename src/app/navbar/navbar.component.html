@@ -1,0 +1,32 @@
+<nav fxLayout="row" fxLayoutAlign="start center">
+  <a *ngIf="this.authService.currentUser" id="cart" mat-raised-button color="primary" routerLink="tour-plan">
+    <mat-icon>tour</mat-icon>{{ getCount() }}
+  </a>
+  <button id="explore" *ngIf="!this.authService.currentUser" mat-raised-button routerLink="" color="primary">Explore</button>
+
+  <button *ngIf="!this.authService.currentUser" mat-raised-button routerLink="login" color="primary">Log in</button>
+  <button *ngIf="this.authService.currentUser" mat-raised-button [matMenuTriggerFor]="menu" color="primary">
+    Hi, {{ this.authService.getCurrentUserDisplayName() }}!
+    <mat-icon>expand_more</mat-icon>
+  </button>
+
+  <mat-menu #menu="matMenu" xPosition="before">
+    <button mat-menu-item routerLink="">
+      <mat-icon>home</mat-icon>
+      Home
+    </button>
+    <button mat-menu-item routerLink="/planer">
+      <mat-icon>auto_stories</mat-icon>
+      Planer
+    </button>
+    <button mat-menu-item routerLink="/profile">
+      <mat-icon>account_circle</mat-icon>
+      Profile
+    </button>
+    <button mat-menu-item (click)="this.logout()">
+      <mat-icon>logout</mat-icon>
+      Log out
+    </button>
+  </mat-menu>
+
+</nav>

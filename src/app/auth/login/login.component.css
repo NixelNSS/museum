@@ -1,0 +1,24 @@
+mat-form-field {
+  width: 66%;
+}
+button {
+  width: 8vw;
+}
+a {
+  text-decoration: none;
+  color: #7f7f7f;
+}
+section {
+  height: 90vh;
+}
+mat-card {
+  width: 50%;
+  margin: auto;
+  text-align: center;
+}
+mat-card-content {
+  width: 75%;
+}
+#custom-error {
+  margin-top: 2vh;
+}

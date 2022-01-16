@@ -1,0 +1,97 @@
+<section id="container" fxLayoutAlign="center center" fxLayout="column">
+  <mat-card fxLayoutAlign="center center" fxLayout="row">
+    <section>
+      <img [src]="setting?.imageURL">
+    </section>
+    <section id="right">
+      <mat-card-header fxLayoutAlign="center center">
+        <mat-card-title>
+          <h1>{{ setting?.name }}</h1>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content fxLayoutAlign="center start" fxLayout="column">
+        <section id="row" fxLayout="row">
+          <div class="column">
+            <h3 class="label">TOUR TIME</h3>
+            <h3 id="price" class="primary-color">{{ setting?.tourTime }} mins</h3>
+          </div>
+          <div class="column">
+            <h3 class="label">RATING</h3>
+            <bar-rating readOnly="true" [max]="5" [theme]="'default'" [rate]="setting?.averageReviewValue"></bar-rating>
+          </div>
+        </section>
+        <div>
+          <h4 class="label">DESCRIPTION</h4>
+          <p>{{ setting?.description }}</p>
+        </div>
+        <div>
+          <h4 class="label">TEAM</h4>
+          <p>{{ setting?.category.name }}</p>
+        </div>
+        <div class="accs">
+          <mat-accordion>
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Exhibits
+                </mat-panel-title>
+                <mat-panel-description>
+                  Click to show the exhibits
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="product-container">
+                <table mat-table [dataSource]="setting?.exhibits">
+                  <ng-container matColumnDef="number">
+                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                    <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="rating">
+                    <th mat-header-cell *matHeaderCellDef> Rating </th>
+                    <td mat-cell *matCellDef="let element">
+                      <bar-rating readOnly="true" [max]="5" [theme]="'default'" [rate]="element?.averageReviewValue"></bar-rating>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="detail">
+                    <th mat-header-cell *matHeaderCellDef> Details </th>
+                    <td mat-cell *matCellDef="let element">
+                      <button mat-raised-button color="primary" (click)="loadExhibit(element.id)">
+                        <mat-icon>search</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="add">
+                    <th mat-header-cell *matHeaderCellDef> Add to tour </th>
+                    <td mat-cell *matCellDef="let element">
+                      <button mat-raised-button color="primary" (click)="addToCurrentTourPlan(element.id)">
+                        <mat-icon>add</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumnsExhibits"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumnsExhibits;"></tr>
+                </table>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </mat-card-content>
+      <mat-card-actions fxLayoutAlign="end center">
+        <button mat-raised-button color="primary" routerLink="">
+          <mat-icon>
+            arrow_back_ios
+          </mat-icon>
+          Back
+        </button>
+      </mat-card-actions>
+    </section>
+  </mat-card>
+</section>

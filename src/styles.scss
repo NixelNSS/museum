@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+@import '~ngx-bar-rating/themes/br-default-theme';
+
+@include mat-core();
+$app-primary: mat-palette($mat-deep-purple);
+
+.primary-color {
+  color: mat-color($app-primary) !important;
+}

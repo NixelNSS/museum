@@ -1,0 +1,55 @@
+<section fxLayoutAlign="center center">
+  <mat-card>
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="3vh">
+      <mat-card-header fxLayoutAlign="center center">
+        <div>
+          <mat-icon>account_circle</mat-icon>
+        </div>
+        <mat-card-title>Profile information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+
+        <mat-form-field>
+          <input matInput [ngModel]="this.currentUser.firstName" #firstName="ngModel" type="text"
+                 placeholder="First name..." name="firstName" required [disabled]="isNotEditable">
+          <mat-error *ngIf="firstName.hasError('required')">Field should not be empty!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput [ngModel]="this.currentUser.lastName" #lastName="ngModel" type="text"
+                 placeholder="Last name..." name="lastName" required [disabled]="isNotEditable">
+          <mat-error *ngIf="lastName.hasError('required')">Field should not be empty!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput disabled [value]="this.currentUser.email" placeholder="Email..." name="email">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput [ngModel]="this.currentUser.phone" #phone="ngModel" type="tel"
+                 placeholder="Phone number..." name="phone" required [disabled]="isNotEditable">
+          <mat-error *ngIf="phone.hasError('required')">Field should not be empty!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput [ngModel]="this.currentUser.address" #address="ngModel" type="text"
+                 placeholder="Address..." name="address" required [disabled]="isNotEditable">
+          <mat-error *ngIf="address.hasError('required')">Field should not be empty!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field hintLabel="Please, enter your favorite categories...">
+          <mat-select [formControl]="categoriesForm" multiple placeholder="Favorite categories..." required>
+            <mat-option *ngFor="let category of categoryList" [value]="category">{{ category }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="categoriesForm.invalid">Field should not be empty!</mat-error>
+        </mat-form-field>
+
+        <mat-card-actions>
+          <button *ngIf="isNotEditable" mat-raised-button color="primary" (click)="changeEditState()">EDIT</button>
+          <button [disabled]="!form.valid || categoriesForm.invalid" *ngIf="!isNotEditable" mat-raised-button color="primary"
+                  type="submit">SAVE</button>
+        </mat-card-actions>
+      </mat-card-content>
+    </form>
+  </mat-card>
+</section>
