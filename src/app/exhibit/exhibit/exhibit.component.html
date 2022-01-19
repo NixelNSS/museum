@@ -86,7 +86,7 @@
           </mat-icon>
           Back
         </button>
-        <button mat-raised-button color="primary" (click)="addToTour()">
+        <button *ngIf="this.authService.currentUser" mat-raised-button color="primary" (click)="addToTour()">
           Add to tour
         </button>
       </mat-card-actions>

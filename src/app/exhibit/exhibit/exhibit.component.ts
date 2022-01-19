@@ -4,6 +4,7 @@ import {ExhibitService} from '../exhibit.service';
 import {Exhibit} from '../exhibit.model';
 import {TourPlanService} from '../../tour-plan/tour-plan.service';
 import {ToastrService} from 'ngx-toastr';
+import {AuthService} from '../../auth/auth.service';
 
 @Component({
   selector: 'app-exhibit',
@@ -21,7 +22,8 @@ export class ExhibitComponent implements OnInit {
     private exhibitService: ExhibitService,
     private router: Router,
     private tourPlanService: TourPlanService,
-    private toastService: ToastrService
+    private toastService: ToastrService,
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {

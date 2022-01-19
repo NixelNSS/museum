@@ -57,6 +57,22 @@ export class ReviewService {
       },
       dateOfCreation: new Date('2022-01-07')
     },
+    {
+      id: 4,
+      value : 5,
+      exhibitId : 3,
+      tourPlanId : 1,
+      user: {
+        id: 1, email: 'nikola@nikola.com', password: 'nikola1234',
+        firstName: 'Nikola', lastName: 'Kostic', phone: '+381663234554',
+        address: 'Street of success', favoriteCategories: [
+          {id: 1, name: 'Boston Celtics'},
+          {id: 3, name: 'Detroit Pistons'},
+          {id: 5, name: 'New York Knicks'}
+        ]
+      },
+      dateOfCreation: new Date('2022-01-07')
+    },
   ];
 
   private idCounter: number = 4;
