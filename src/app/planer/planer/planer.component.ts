@@ -1,12 +1,10 @@
 import {ReviewService} from './../../shared/review/review.service';
 import {ToastrService} from 'ngx-toastr';
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PlanerService} from '../planer.service';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmationDialogComponent} from 'src/app/confirmation-dialog/confirmation-dialog.component';
-import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {MatSort} from '@angular/material/sort';
 import {Router} from '@angular/router';
 import {BarRating} from 'ngx-bar-rating';
 import {TourPlan} from '../../tour-plan/tour-plan.model';
@@ -24,11 +22,6 @@ export class PlanerComponent implements OnInit {
   tourPlans: MatTableDataSource<TourPlan>;
   displayedColumns: string[] = ['number', 'amount', 'time', 'exhibits', 'status', 'done', 'cancel', 'remove'];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
-  ratings: number[];
-
   isOpen: number;
 
   constructor(
@@ -43,8 +36,6 @@ export class PlanerComponent implements OnInit {
     this.isOpen = -1;
     this.planerService.getByUserId().subscribe(response => {
       this.tourPlans = new MatTableDataSource<TourPlan>(response);
-      this.tourPlans.paginator = this.paginator;
-      this.tourPlans.sort = this.sort;
     });
   }
 
@@ -58,8 +49,6 @@ export class PlanerComponent implements OnInit {
       if (result) {
         this.planerService.deleteById(id).subscribe(response => {
           this.tourPlans = new MatTableDataSource<TourPlan>(response);
-          this.tourPlans.paginator = this.paginator;
-          this.tourPlans.sort = this.sort;
           this.toastService.success('Exhibit removed.');
         });
       }
@@ -81,8 +70,6 @@ export class PlanerComponent implements OnInit {
         this.reviewService.addReview(value.rate, exhibitId, tourPlanId).subscribe(response => {
           const planer = this.planerService.addReviewToTourPlan(response.value, exhibitId, tourPlanId);
           this.tourPlans = new MatTableDataSource<TourPlan>(planer);
-          this.tourPlans.paginator = this.paginator;
-          this.tourPlans.sort = this.sort;
           this.toastService.success('Exhibit has been reviewed successfully.');
         });
       }
@@ -99,8 +86,6 @@ export class PlanerComponent implements OnInit {
       if (result) {
         this.planerService.markAsDone(tourPlanId).subscribe(response => {
           this.tourPlans = new MatTableDataSource<TourPlan>(response);
-          this.tourPlans.paginator = this.paginator;
-          this.tourPlans.sort = this.sort;
           this.toastService.success('Tour plan is marked as done.');
         });
       }
@@ -117,33 +102,15 @@ export class PlanerComponent implements OnInit {
       if (result) {
         this.planerService.markAsCanceled(tourPlanId).subscribe(response => {
           this.tourPlans = new MatTableDataSource<TourPlan>(response);
-          this.tourPlans.paginator = this.paginator;
-          this.tourPlans.sort = this.sort;
           this.toastService.success('Tour plan is marked as canceled.');
         });
       }
     });
   }
 
-  areAllReviewed(tourPlanId: number): boolean {
-    const tp: TourPlan = this.tourPlans.data.find(tourPlan => tourPlan.id === tourPlanId);
-    if (!tp) {
-      return false;
-    }
-    let allAreReviewed: boolean = false;
-    tp.exhibits.forEach(e => {
-      if (e.tourPlanReviewValue === 0) {
-        allAreReviewed = false;
-      }
-    });
-    return allAreReviewed;
-  }
-
   search(value: string): void {
     this.planerService.getAllByCriteria(value).subscribe(response => {
       this.tourPlans = new MatTableDataSource<TourPlan>(response);
-      this.tourPlans.paginator = this.paginator;
-      this.tourPlans.sort = this.sort;
     });
   }
 

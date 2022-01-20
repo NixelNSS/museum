@@ -10,7 +10,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatSliderModule } from '@angular/material/slider';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -32,7 +31,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatSelectModule,
     MatTableModule,
     MatSliderModule,
-    MatPaginatorModule,
     MatSortModule,
     MatGridListModule,
     MatSidenavModule,
@@ -52,7 +50,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatSelectModule,
     MatTableModule,
     MatSliderModule,
-    MatPaginatorModule,
     MatSortModule,
     MatGridListModule,
     MatSidenavModule,
